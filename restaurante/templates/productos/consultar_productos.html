@@ -1,0 +1,73 @@
+{% extends 'admin_restaurante.html' %}
+{% block restaurante_admin %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h3 class="m-0 font-weight-bold text-gray-dark float-left text-center">Productos</h3>
+            <a href="{% url 'crear_producto' %}">
+                <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+                    <i class="far fa-plus-square"></i> Crear Producto
+                </button>
+            </a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <form action="{% url 'consultar_producto' %}" method="post" class="float-right">
+                    <div class="col-xs-2">
+                        {% csrf_token %}
+                        {{ buscarProductoForm.as_table }}
+                        <button class="btn btn-sm bg-teal" type="submit"><i class="fa fa-search"></i></button>
+                    </div>
+                </form>
+                <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre del producto</th>
+                        <th>Detalle del producto</th>
+                        <th>Precio</th>
+                        <th>Opciones</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre del producto</th>
+                        <th>Detalle del producto</th>
+                        <th>Precio</th>
+
+                        <th>Opciones</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    {% for producto in  producto_ls %}
+
+                            <tr>
+                                <td>{{ producto.id }}</td>
+                                <td>{{ producto.name }}</td>
+                                <td>{{ producto.cat }}</td>
+                                <td>{{ producto.pvp }}</td>
+
+                                </td>
+                                <td class="text-right py-0 align-middle">
+                                    <center>
+                                        <div class="btn-group btn-group-sm">
+                                            <a href="{% url 'editar_producto' producto.id %}"
+                                               class="btn btn-info"><i class="fas fa-pencil-alt"></i></a>
+                                            <a href="{% url 'eliminar_producto' producto.id %}"
+                                               class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                        </div>
+                                    </center>
+                                </td>
+
+                            </tr>
+
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,191 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gestion de Pedidos</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/">
+    <link href="{% static 'dist/lib/adminlte-3.0.4/plugins/font-awesome-5.11.1/css/all.min.css' %}" rel="stylesheet">
+    <link href="{% static 'dist/lib/adminlte-3.0.4/css/adminlte.min.css' %}" rel="stylesheet">
+    <script src="{% static 'dist/lib/adminlte-3.0.4/plugins/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'dist/lib/adminlte-3.0.4/js/adminlte.min.js' %}"></script>
+    <script src="{% static 'dist/lib/adminlte-3.0.4/plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- EXTRAS -->
+    <script src="{% static 'dist/lib/adminlte-3.0.4/plugins/jquery/jquery.js' %}"></script>
+    <script src="{% static 'dist/lib/adminlte-3.0.4/js/demo.js' %}"></script>
+    <script src="{% static 'dist/js/datatables-demo.js' %}"></script>
+    <script src="{% static 'dist/js/functions.js' %}"></script>
+    <script src="{% static 'dist/lib/datatables-1.10.20/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'dist/lib/datatables-1.10.20/js/dataTables.bootstrap4.min.js' %}"></script>
+    <link href="{% static 'dist/lib/datatables-1.10.20/css/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+
+</head>
+<body class="hold-transition sidebar-mini layout-fixed ">
+
+{% if user.is_authenticated %}
+    <div class="wrapper">
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="" class="nav-link">Inicio</a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block">
+                <a href="#" class="nav-link">Contact</a>
+            </li>
+        </ul>
+
+    </nav>
+
+    <aside class="main-sidebar sidebar-light-green">
+        <!-- Brand Logo -->
+        <a href="../../index3.html" class="brand-link text-center">
+            <span class="brand-text font-weight-light ">Panel Administrativo</span>
+        </a>
+        <a href="../../index3.html" class="brand-link" style="margin:0 auto">
+
+            <img src="{% static 'dist/imagenes/user.svg' %}" alt="AdminLTE Logo" class="brand-image img-circle"
+                 style="opacity: .8">
+            <span class="brand-text font-weight-light">{{ user.username }}</span>
+            <span class="right badge badge-danger">Administrador</span>
+        </a>
+        <!-- Sidebar -->
+        <div class="sidebar">
+
+
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                    data-accordion="false">
+                    <!-- Add icons to the links using the .nav-icon class
+                         with font-awesome or any other icon font library -->
+                    <li class="nav-item">
+                        <a href="" class="nav-link">
+                            <i class="nav-icon fab fa-audible"></i>
+                            <p>
+                                Categoria
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'consultar_restaurante' %}" class="nav-link">
+                            <i class="nav-icon fas fa-utensils"></i>
+                            <p>
+                                Restaurante
+                                <span class="right badge badge-danger">New</span>
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'consultar_producto' %}" class="nav-link">
+                            <i class="nav-icon fas fa-dolly-flatbed"></i>
+                            <p>
+                                Productos
+                                <span class="right badge badge-danger">New</span>
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'sale_create' %}" class="nav-link">
+                            <i class=" nav-icon fas fa-paste"></i>
+                            <p>
+                                Factura
+                                <span class="right badge badge-danger">New</span>
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{% url 'consultar_empresa' %}" class="nav-link">
+                            <i class="nav-icon fas fa-cart-plus"></i>
+                            <p>
+                                Empresas
+                                <span class="right badge badge-danger">New</span>
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item menu-open">
+                        <a href="" class="nav-link">
+                            <i class="nav-icon fas fa-car-alt"></i>
+                            <p>
+                                Opciones
+                                <i class="fas fa-angle-left right"></i>
+                                <span class="badge badge-info right">2</span>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="{% url 'consultar_chofer' %}" class="nav-link">
+                                    <i class="nav-icon far fa-id-card"></i>
+                                    <p>Chofer</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'consultar_zona' %}" class="nav-link">
+                                    <i class="nav-icon fas fa-map-marker-alt"></i>
+                                    <p>Zonas</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'consultar_vehiculo' %}" class="nav-link">
+                                    <i class="nav-icon fas fa-car-alt"></i>
+                                    <p>Vehiculos</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    </li>
+                    <li class="nav-item">
+                        <a href="" class="nav-link">
+                            <i class="nav-icon fas fa-pizza-slice"></i>
+                            <p>
+                                Pedidos
+                                <span class="right badge badge-danger">New</span>
+                            </p>
+                        </a>
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a href="{% url 'logout' %}" class="nav-link">
+                            <i class="nav-icon fas fa-sign-out-alt"></i>
+                            <p>
+                                Salir
+                            </p>
+                        </a>
+                    </li>
+
+                </ul>
+            </nav>
+            <!-- /.sidebar-menu -->
+        </div>
+    </aside>
+
+    <div class="content-wrapper ">
+    <section class="content-header ">
+
+        {% block restaurante_admin %}
+
+        {% endblock %}
+
+    </section>
+
+{% else %}
+
+    {% block login %}
+    {% endblock %}
+{% endif %}
+
+</div>
+</div>
+
+<!-- ./wrapper -->
+
+
+</body>
+
+</html>

@@ -1,0 +1,12 @@
+{% extends 'admin_restaurante.html' %}
+{% block restaurante_admin %}
+    {% load static %}
+    <div class="card-body form-group">
+        <form method="post">
+            {% csrf_token %}
+            {{ restauranteForm.as_p }}
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a href="{% url 'consultar_categoria' %}" type="submit" class="btn btn-info">Cancelar</a>
+        </form>
+    </div>
+{% endblock %}

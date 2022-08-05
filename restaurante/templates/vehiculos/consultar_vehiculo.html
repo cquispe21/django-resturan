@@ -1,0 +1,59 @@
+{% extends 'admin_restaurante.html' %}
+{% block restaurante_admin %}
+    {% load static %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h3 class="m-0 font-weight-bold text-gray-dark float-left text-center">Vehiculo</h3>
+            <a href="{% url 'crear_vehiculo' %}">
+                <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+                    <i class="fas fa-plus-circle"></i> Crear Vehiculo
+                </button>
+            </a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                    <tr>
+                        <th>Chofer</th>
+                        <th>Marca</th>
+                        <th>Placa</th>
+                        <th>Opciones</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>Chofer</th>
+                        <th>Marca</th>
+                        <th>Placa</th>
+                        <th>Opciones</th>
+                    </tr>
+                    </tfoot>
+                    <tbody>
+                    {% for vehiculo in  vehiculo_ls %}
+                        {% if vehiculo.estado == 1 %}
+                            <tr>
+                                <td>{{ vehiculo.chofer}}</td>
+                                <td>{{ vehiculo.marca_vehiculo }}</td>
+                                <td>{{ vehiculo.placa_vehiculo }}</td>
+                                <td class="text-right py-0 align-middle">
+                                    <center>
+                                        <div class="btn-group btn-group-sm">
+                                            <a href="{% url 'editar_vehiculo' vehiculo.id %}"
+                                               class="btn btn-info"><i class="fas fa-pencil-alt"></i></a>
+                                            <a href="{% url 'eliminar_vehiculo' vehiculo.id %}"
+                                               class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                        </div>
+                                    </center>
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    </div>
+{% endblock %}

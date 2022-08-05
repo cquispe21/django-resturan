@@ -1,0 +1,89 @@
+{% extends 'admin_restaurante.html' %}
+{% block restaurante_admin %}
+    <div class="card shadow mb-4">
+        <div class="card-header py-3">
+            <h3 class="m-0 font-weight-bold text-gray-dark float-left text-center">Restaurante</h3>
+            <a href="{% url 'crear_restaurante' %}">
+                <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+                    <i class="far fa-plus-square"></i> Crear Restaurante
+                </button>
+            </a>
+
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <form action="{% url 'consultar_restaurante' %}" method="post" class="float-right">
+                    <div class="col-xs-2">
+                        {% csrf_token %}
+                        {{ buscarRestauranteForm.as_table }}
+                        <button class="btn btn-sm bg-teal" type="submit"><i class="fa fa-search"></i></button>
+                    </div>
+                </form>
+                <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+
+                    <thead>
+                    <tr>
+                        <th>Fecha Creacion</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Direccion</th>
+                        <th>Telefono</th>
+                        <th>Categoria</th>
+                        <th>Estado</th>
+                        <th>Opciones</th>
+                    </tr>
+                    </thead>
+                    <tfoot>
+                    <tr>
+                        <th>Fecha Creacion</th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Direccion</th>
+                        <th>Telefono</th>
+                        <th>Categoria</th>
+                        <th>Estado</th>
+                        <th>Opciones</th>
+                    </tr>
+                    </tfoot>
+                    {% for restaurante in  restaurante_ls %}
+
+
+                        {% if restaurante.estado == 1 %}
+                            <tr>
+                                <td>{{ restaurante.fecha_creacion|date }}</td>
+                                <td>{{ restaurante.nombre_restaurante }}</td>
+                                <td>{{ restaurante.email }}</td>
+                                <td>{{ restaurante.direccion }}</td>
+                                <td>{{ restaurante.telefono }}</td>
+                                <td>{{ restaurante.categoria }}</td>
+                                <td>
+
+                                    {% if restaurante.actividad == 'Abierto' %}
+                                        <span class="badge bg-warning">{{ restaurante.actividad }}</span>
+                                    {% else %}
+                                        <span class="badge bg-danger">{{ restaurante.actividad }}</span>
+                                    {% endif %}
+                                </td>
+                                <td class="text-right py-0 align-middle">
+                                    <center>
+                                        <div class="btn-group btn-group-sm">
+                                            <a href="{% url 'editar_restaurante' restaurante.id %}"
+                                               class="btn btn-info"><i class="fas fa-pencil-alt"></i></a>
+                                            <a href="{% url 'eliminar_restaurante' restaurante.id %}"
+                                               class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                        </div>
+                                    </center>
+                                </td>
+
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+{% endblock %}

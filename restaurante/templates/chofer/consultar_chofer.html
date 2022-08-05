@@ -1,0 +1,76 @@
+{% extends 'admin_restaurante.html' %}
+{% block restaurante_admin %}
+    {% load static %}
+    <div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h3 class="m-0 font-weight-bold text-gray-dark float-left text-center">Chofer</h3>
+        <a href="{% url 'crear_chofer' %}">
+        <button type="button" class="btn btn-primary float-right" style="margin-right: 5px;">
+                    <i class="fas fa-plus-circle"></i> Crear Chofer
+                  </button>
+        </a>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+        <form action="{% url 'consultar_chofer' %}" method="post" class="float-right">
+            <div class="col-xs-2">
+            {% csrf_token %}
+                <select class="form-control-sm" id="status" name="status" onChange="mostrar(this.value);" aria-label="Seleccionar">
+                    <option selected>Selecciona</option>
+                    <option value="chofer">Chofer</option>
+                    <option value="telefono">Telefono</option>
+                    <option value="chote">Chote</option>
+                 </select>
+                {{ buscarChoferForm.bus3 }}
+                {{ buscarChoferForm.bus2 }}
+            <button class="btn btn-sm bg-teal" type="submit"><i class="fa fa-search"></i></button>
+            </div>
+        </form>
+            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                    <th>Chofer</th>
+                    <th>Telefono</th>
+                    <th>Email</th>
+                    <th>Empresa</th>
+                    <th>Opciones</th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                    <th>Chofer</th>
+                    <th>Telefono</th>
+                    <th>Email</th>
+                    <th>Empresa</th>
+                    <th>Opciones</th>
+                </tr>
+                </tfoot>
+                <tbody>
+                {% for chofer in  chofer_ls %}
+                    {% if chofer.estado == 1 %}
+                        <tr>
+                            <td>{{ chofer.nombre_chofer }}</td>
+                            <td>{{ chofer.telefono_chofer }}</td>
+                            <td>{{ chofer.email_chofer }}</td>
+                            <td>{{ chofer.empresa }}</td>
+                            <td class="text-right py-0 align-middle">
+                                <center>
+                                    <div class="btn-group btn-group-sm">
+                                        <a href="{% url 'editar_chofer' chofer.id %}"
+                                           class="btn btn-info"><i class="fas fa-pencil-alt"></i></a>
+                                        <a href="{% url 'eliminar_chofer' chofer.id %}"
+                                           class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                                    </div>
+                                </center>
+                            </td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</div>
+{% endblock %}
